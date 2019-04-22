@@ -276,7 +276,7 @@ class AddQuestion extends Component {
             </Grid>
           </Grid>
           <Button color="primary" variant="contained" onClick={this.addQuestion}>
-            Add new questions
+            Add new question
           </Button>
           {error && error.map((item, i) => <LoadingError key={i} message={item.msg} />)}
         </CardContent>
