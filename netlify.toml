@@ -5,4 +5,4 @@ status = 200
 [build]
 base = "quizcraft-app/"
 publish = "quizcraft-app/build/"
-command = "yarn build"
+command = "npm run build"
