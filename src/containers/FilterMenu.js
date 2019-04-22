@@ -73,7 +73,13 @@ class FilterMenu extends Component {
       <div className={classes.root}>
         <Grid container spacing={16}>
           <Grid item xs={6}>
-            <Button fullWidth variant="contained" size="small" color="primary">
+            <Button
+              fullWidth
+              variant="contained"
+              size="small"
+              color="primary"
+              onClick={() => (FilterStore.showAddQuestion = true)}
+            >
               Add Question
             </Button>
           </Grid>

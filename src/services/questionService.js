@@ -11,4 +11,9 @@ export default {
    * Returns a specific question.
    */
   getQuestion: id => api({ endpoint: `questions/${id}` }),
+
+  /**
+   * Returns a specific question.
+   */
+  postQuestion: data => api({ method: 'POST', endpoint: 'questions', data }),
 };

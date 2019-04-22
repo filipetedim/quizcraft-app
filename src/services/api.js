@@ -1,3 +1,5 @@
+import Cookie from 'js-cookie';
+
 // Utils
 import Config from '../utils/config';
 import History from '../utils/history';
@@ -39,15 +41,24 @@ async function parseJSON(response) {
 /**
  * Creates the AJAX request, does some parsing and validation.
  */
-async function createRequest({ method = 'GET', endpoint = '' }) {
+async function createRequest({ method = 'GET', endpoint = '', data = null }) {
   const url = `${Config.API_URL}/${endpoint}`;
   const params = {
     method,
     headers: {
       'Content-Type': 'application/json',
+      'x-access-token': Cookie.get('qc-token'),
     },
     mode: 'cors',
   };
+
+  if (data) {
+    params.body = JSON.stringify(data);
+  }
+
+  if (!Cookie.get('qc-token')) {
+    return Promise.reject();
+  }
 
   return fetch(url, params);
 }

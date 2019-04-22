@@ -6,6 +6,7 @@ import DataTypes from '../utils/dataTypes';
 class FilterStore {
   constructor() {
     extendObservable(this, {
+      showAddQuestion: false,
       search: '',
       expansions: DataTypes.parseToFilterObject(DataTypes.expansions),
       difficulties: DataTypes.parseToFilterObject(DataTypes.difficulties),

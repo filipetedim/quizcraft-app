@@ -26,6 +26,7 @@ import Config from '../utils/config';
 const styles = theme => ({
   root: {
     width: '100%',
+    overflowX: 'auto',
   },
   tableRowLoading: {
     height: 0,
@@ -45,7 +46,15 @@ class QuestionTable extends Component {
     setTimeout(() => {
       this.setState({ loading: false });
     }, Config.SPINNER_TIME);
-    window.scrollTo(0, 0); // I hate doing this but it's late
+  }
+
+  async componentWillReceiveProps() {
+    this.setState({ loading: true });
+    await this.getQuestions();
+
+    setTimeout(() => {
+      this.setState({ loading: false });
+    }, Config.SPINNER_TIME);
   }
 
   /**
@@ -122,26 +131,25 @@ class QuestionTable extends Component {
                 </TableCell>
               </TableRow>
             )}
-            {!loading &&
-              filtered.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(question => (
-                <TableRow key={question._id}>
-                  <TableCell component="th" scope="row">
-                    {question.question}
-                  </TableCell>
-                  <TableCell align="right">
-                    {DataTypes.parseToObject(DataTypes.expansions)[question.expansion]}
-                  </TableCell>
-                  <TableCell align="right">
-                    {DataTypes.parseToObject(DataTypes.difficulties)[question.difficulty]}
-                  </TableCell>
-                  <TableCell align="right">
-                    {DataTypes.parseToObject(DataTypes.types)[question.type]}
-                  </TableCell>
-                  <TableCell align="right">
-                    {DataTypes.parseToObject(DataTypes.categories)[question.category]}
-                  </TableCell>
-                </TableRow>
-              ))}
+            {filtered.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(question => (
+              <TableRow key={question._id}>
+                <TableCell component="th" scope="row">
+                  {question.question}
+                </TableCell>
+                <TableCell align="right">
+                  {DataTypes.parseToObject(DataTypes.expansions)[question.expansion]}
+                </TableCell>
+                <TableCell align="right">
+                  {DataTypes.parseToObject(DataTypes.difficulties)[question.difficulty]}
+                </TableCell>
+                <TableCell align="right">
+                  {DataTypes.parseToObject(DataTypes.types)[question.type]}
+                </TableCell>
+                <TableCell align="right">
+                  {DataTypes.parseToObject(DataTypes.categories)[question.category]}
+                </TableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
         <TablePagination

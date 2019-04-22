@@ -5,6 +5,7 @@ import Warning from '@material-ui/icons/Warning';
 
 const styles = theme => ({
   root: {
+    marginTop: 15,
     backgroundColor: '#ef5350',
   },
   icon: {
@@ -18,7 +19,7 @@ const styles = theme => ({
 });
 
 function LoadingError(props) {
-  const { classes } = props;
+  const { classes, message } = props;
 
   return (
     <SnackbarContent
@@ -26,7 +27,7 @@ function LoadingError(props) {
       message={
         <span className={classes.message}>
           <Warning className={classes.icon} />
-          Error: couldn't load data. Please refresh or try again later.
+          {message || `Error: couldn't load data. Please refresh or try again later.`}
         </span>
       }
     />
